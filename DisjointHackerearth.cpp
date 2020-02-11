@@ -1,50 +1,51 @@
 #include<bits/stdc++.h>
+using namespace std;
 
-vector<int> intialiseVector(vector<int> &vect, int nodes){
+void intialiseVector(vector<int> &vect, int nodes){
     for(int i=1;i<=nodes;++i){
         vect.push_back(i);
     }    
-    return vect;
 }
 
-vector<int> union(vector<int> &vect, int node1, int node2){
-    
-    if(node1<node2){
-        min = node1;
-    } else {
-        min = node2;
-    }
-    for(int i=1;i<=vect.size();++i) {
-        if(vect[i]= node1 || vect[i] = node2){
-            vect[i] = min;
+void unionCustom(vector<int> &vect, int A, int B){
+       int TEMP = vect[ A ];
+    for(int i = 1; i < vect.size();i++)
+        {
+        if(vect[ i ] == TEMP)
+        vect[ i ] = vect[ B ]; 
         }
-    }
 }
-
 
 int main(){
-    ios:base::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(0);
     int nodes, edges;
     cin>>nodes;
     vector<int> vect;
-    vect=intialiseVector(vect);
+    vect.push_back(0);
+    intialiseVector(vect,nodes);
     cin>>edges;
     for(int i=1;i<=edges;i++){
         int node1, node2;
         int count=0;
         cin>>node1;
         cin>>node2;
-        vect = union(vect, node1, node2);
-        for(int j=nodes; j>0; --j){
-            for(int k=1;k<=nodes;++k){
-                if(j==vect[k]){
+        vector<int> temp;
+        unionCustom(vect, node1, node2);
+        for(int k=1;k<=nodes;k++){
+            for(int l=0;l<vect.size();l++){
+                if(vect[l]==k){
                     count++;
                 }
             }
-            
-            cout<<count<<" ";
+            if(count){
+                temp.push_back(count);
+            }
             count=0;
+        }
+        sort(temp.begin(), temp.end());
+        for(int k=0;k<temp.size();k++){
+            cout<<temp[k]<<" ";
         }
         cout<<"\n";
     }
